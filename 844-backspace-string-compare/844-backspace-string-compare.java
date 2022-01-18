@@ -21,6 +21,6 @@ class Solution {
         }
         
         
-        return String.valueOf(stack);
+        return stack.toString();
     }
 }
