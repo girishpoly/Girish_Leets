@@ -13,11 +13,9 @@ class Solution {
                 st.add(c);
             }
             
-            
-            if(c == ')'){
-             
+            else{
+                if(c == ')'){
                 if(st.isEmpty() || st.pop() != '(') return false; 
-                
             }
             
             else if(c == ']'){
@@ -26,8 +24,8 @@ class Solution {
             
             else if(c == '}'){
                 if(st.isEmpty() || st.pop() != '{') return false; 
+            } 
             }
-            
         }
         
         
