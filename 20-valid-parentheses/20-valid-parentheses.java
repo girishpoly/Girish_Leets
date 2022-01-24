@@ -14,16 +14,20 @@ class Solution {
             }
             
             else{
+                if(st.isEmpty()){
+                    return false;
+                }
+                
                 if(c == ')'){
-                if(st.isEmpty() || st.pop() != '(') return false; 
+                if(st.pop() != '(') return false; 
             }
             
             else if(c == ']'){
-                if(st.isEmpty() || st.pop() != '[') return false; 
+                if(st.pop() != '[') return false; 
             }
             
             else if(c == '}'){
-                if(st.isEmpty() || st.pop() != '{') return false; 
+                if(st.pop() != '{') return false; 
             } 
             }
         }
