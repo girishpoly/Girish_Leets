@@ -6,7 +6,6 @@ class Solution {
         }
         
         Stack<Character> st = new Stack<>();
-        boolean valid = true;
         
         for(Character c : s.toCharArray()){
             
