@@ -5,18 +5,24 @@ class Solution {
             return "";
         }
         
-        String prefix = strs[0];
+        if(strs.length == 1){
+            return strs[0];
+        }
         
-        for(int i = 1 ; i < strs.length ; i++){
+        String temp = strs[0];
+        
+        for(int i=1; i<strs.length ;i++){
             
-            while(strs[i].indexOf(prefix) != 0){
-                
-                prefix = prefix.substring(0, prefix.length() - 1);
-                
+            while(strs[i].indexOf(temp) != 0){
+                temp = temp.substring(0, temp.length() - 1);
+                if(temp.isEmpty()){
+                    return "";
+                }
             }
             
         }
         
-        return prefix;
+        return temp;
+        
     }
 }
