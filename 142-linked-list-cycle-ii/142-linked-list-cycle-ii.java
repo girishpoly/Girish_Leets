@@ -10,13 +10,32 @@
  * }
  */
 public class Solution {
-    public ListNode detectCycle(ListNode head) {
-        HashSet<ListNode> set = new HashSet<ListNode>();
-        while(head != null) {
-            if(set.contains(head)) return head;
-            set.add(head);
-            head = head.next;
-        }
-        return head;
-       }
+   public ListNode detectCycle(ListNode head) {
+  ListNode slow = head, fast = head;
+  
+  while (fast != null && fast.next != null) {
+    slow = slow.next;
+    fast = fast.next.next;
+    
+    if (slow == fast)
+        // found the cycle
+        break;
+  }
+  
+  if (fast == null || fast.next == null)
+    // in case there is no cycle
+    return null;
+  
+  // let the slow pointer go from the head 
+  // and meet the fast pointer
+  // the meeting point is our answer
+  slow = head;
+  
+  while (slow != fast) {
+    slow = slow.next;
+    fast = fast.next;
+  }
+  
+  return slow;
+}
 }
