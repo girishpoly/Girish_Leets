@@ -1,28 +1,24 @@
 class Solution {
     public String longestCommonPrefix(String[] strs) {
-        
-        if(strs.length == 0){
-            return "";
-        }
-        
-        if(strs.length == 1){
-            return strs[0];
-        }
-        
-        String temp = strs[0];
-        
-        for(int i=1; i<strs.length ;i++){
-            
-            while(strs[i].indexOf(temp) != 0){
-                temp = temp.substring(0, temp.length() - 1);
-                if(temp.isEmpty()){
-                    return "";
-                }
+        String prefix = strs[0];
+        for(int index=1;index<strs.length;index++){
+            while(strs[index].indexOf(prefix) != 0){
+                prefix=prefix.substring(0,prefix.length()-1);
             }
-            
         }
-        
-        return temp;
-        
+        return prefix;
     }
 }
+
+/*
+PLEASE UPVOTE IF IT HELPS YOU! THANK YOU!
+Recommend to dry run along with the example.
+
+Working:
+1)Take the first(index=0) string in the array as prefix.
+2)Iterate from second(index=1) string till the end.
+3)Use the indexOf() function to check if the prefix is there in the strs[i] or not.
+If the prefix is there the function returns 0 else -1.
+4)Use the substring function to chop the last letter from prefix each time the function return -1.
+*/
+
