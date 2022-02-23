@@ -11,9 +11,6 @@ class Solution {
 }
 
 /*
-PLEASE UPVOTE IF IT HELPS YOU! THANK YOU!
-Recommend to dry run along with the example.
-
 Working:
 1)Take the first(index=0) string in the array as prefix.
 2)Iterate from second(index=1) string till the end.
