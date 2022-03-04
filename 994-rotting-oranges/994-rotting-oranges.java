@@ -57,10 +57,15 @@ class Solution {
                 //check the cell in the left/right/top/down of the rotten orange, if it fresh enqueit
                Position p = q.peek();
 				
+                //the rotten orange will rot the fresh orange right side to it
+                //checking bounds so as we don't go over the grid
+                //we will also check if the orange on the right side is a fresh one
+                //rot it and add it to the queue
                 if (p.x + 1 < grid.length && grid[p.x + 1][p.y] == 1) {
                     grid[p.x + 1][p.y] = 2;
                     q.offer(new Position(p.x + 1, p.y));
                 }
+                //the rotten orange will rot the fresh orange left side to it
                 if (p.x - 1 >= 0 && grid[p.x - 1][p.y] == 1) {
                     grid[p.x - 1][p.y] = 2;
                     q.offer(new Position(p.x - 1, p.y));
@@ -73,6 +78,8 @@ class Solution {
                     grid[p.x][p.y - 1] = 2;
                     q.offer(new Position(p.x, p.y - 1));
                 }
+                //after rotting all the oranges in all sides remove the current rotten orange from 
+                //the queue and start processing other ones
                 q.poll();
                 
             }
