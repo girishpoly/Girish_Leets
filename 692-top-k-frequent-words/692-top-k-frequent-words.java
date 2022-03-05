@@ -1,6 +1,8 @@
 /*
 The idea is to keep a count of each word in a HashMap and then insert in a Priority Queue.
-While inserting in pq, if the count of two words is same then insert based on string compare of the keys.*/
+While inserting in pq, if the count of two words is same then insert based on string compare of the keys.
+Could you solve it in O(n log(k)) time and O(n) extra space?
+*/
 
 class Solution {
     public List<String> topKFrequent(String[] words, int k) {
@@ -16,7 +18,7 @@ class Solution {
         }
         
         PriorityQueue<Map.Entry<String, Integer>> pq = new PriorityQueue<>(
-                 (a,b) -> a.getValue()==b.getValue() ? b.getKey().compareTo(a.getKey()) : a.getValue()-b.getValue()
+                 (a,b) -> a.getValue()==b.getValue() ? b.getKey().compareTo(a.getKey()) :                       a.getValue()-b.getValue()
         );
         
         for(Map.Entry<String, Integer> entry: map.entrySet())
