@@ -9,6 +9,9 @@
      
      if we find x,y with 1 that means its a different land, increment island count and we mark this visited and check for its neighbors. if we keep finding neighbors of neighbors, that means it is a continuous landmass.
     
+    Time complexity :O(M×N) where MM is the number of rows and NN is the number of columns.
+
+Space complexity : O(min(M, N))O(min(M,N)) because in worst case where the grid is filled with lands, the size of queue can grow up to min(M,NM,N).
 */
 class Solution {
 
