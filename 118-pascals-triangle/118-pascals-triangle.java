@@ -1,32 +1,22 @@
 class Solution {
-    public List<List<Integer>> generate(int numRows) {
-         List<List<Integer>> res = new ArrayList<>();
-     
-      if (numRows == 0) {
-         return res;
-      }           
-          for (int i = 0; i < numRows; i++) {
-               List<Integer> temp = new ArrayList<>();
-      List<Integer> intervalValue = new ArrayList<>(); //this list contains the values except for the first 1 and the last 1 in a row
-              if (i==0) { //the first row
-                  temp.add(1);
-                  res.add(new ArrayList<>(temp));                    
-              }
-            else //numRows>1
-              {
-               int lastSize = res.get(res.size()-1).size();//get the size of previous row
-              for (int j = 0; j < lastSize-1; j++) { //caculate the interval Value based on previous row
-                 int pre = res.get(res.size()-1).get(j);
-                 int rear = res.get(res.size()-1).get(j+1);                                                 
-                  intervalValue.add(pre+rear);
-              }
-			  //once we get the value in the middle interval, we just need to combine them
-              temp.add(1); //the fisrt one
-              temp.addAll(intervalValue);
-              temp.add(1);// the last one
-              res.add(new ArrayList<>(temp));
-              }      
-      }
-      return res;
+   public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> sol = new ArrayList<>();
+        if (numRows == 0) return sol;
+        
+        List<Integer> row = new ArrayList<>();
+        row.add(1);
+        sol.add(row);
+        
+        for (int i = 1; i < numRows; i++) {
+            List<Integer> r = new ArrayList<>();
+            r.add(1);
+            List<Integer> p = sol.get(i-1);
+            for (int j = 0; j < p.size()-1; j++) {
+                r.add(p.get(j) + p.get(j+1));
+            }
+            r.add(1);
+            sol.add(r);
+        }        
+        return sol;
     }
 }
