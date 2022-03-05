@@ -1,102 +1,107 @@
+/*
+    The idea is to get the first x,y value then we get its neighbors from left, top, right, bottom
+    add the neighbors to the queue to process them as well and keep doing this for all the values
+     in the grid.
+     If queue is empty that means we have processed one x,y value with 1 and visited its neighbors.
+     as we visit the neighbors mark them visited may be 2
+     
+     Now to visit or check if any other island is present, we need to go to the next valid x,y that has 1. otherwise we keep moving forward.
+     
+     if we find x,y with 1 that means its a different land, increment island count and we mark this visited and check for its neighbors. if we keep finding neighbors of neighbors, that means it is a continuous landmass.
+    
+*/
 class Solution {
-   static class Pair {
-        int first;
-        int second;
-        Pair() {}
-        Pair(int first, int second) {
-            this.first = first;
-            this.second = second;
+
+    //class to store x, y values from the given grid
+    static class Point {
+        int x;
+        int y;
+
+        public Point() {
+        }
+
+        public Point(int x, int y) {
+            this.x = x;
+            this.y = y;
         }
     }
 
+    public int numIslands(char[][] grid) {
 
-public static int numIslands(char[][] grid) {
+        //create a queue to add x,y values 
+        Queue<Point> queue = new LinkedList<>();
 
-	// we add queue for pair, as we need to store x,y values
-	// in that way we can get the value from grid[x][y]
-	Queue<Pair> queue = new LinkedList<>();
+        int numIslands = 0;
 
-	int islands = 0;
+        int rows = grid.length;
+        int cols = grid[0].length;
 
-	// now, general idea is we check for all x,y values
-	// we get the first valid x,y value then we get its neighbours
-	// ie top, bottom, left, right and put it to the queue to process next
-	// ideally if Q is empty that means we have processed one x,y value with '1'
-	// and visited its neighbours, ie the continuous landmass
-	// now to visit or check if any other landmass is present,
-	// we need to go to the next valid x,y (valid x,y has '1')
-	// otherwise, we keep moving forward
-	// if we find an x,y with '1', that means its a different landmass, increment island count and,
-	// we mark this visited and check for its neighbours to visit them
-	// if we keep finding neighbours of neighbours, that means its a continuous landmass
+        for (int i = 0; i < rows; i++) {
 
-	for (int ii = 0; ii < grid.length; ii++)
-		for (int ij = 0; ij < grid[ii].length; ij++) {
+            for (int j = 0; j < cols; j++) {
 
-			// we add to Q only if its a non visited landmass
-			if (grid[ii][ij] == '1') queue.add(new Pair(ii, ij));
+                if (grid[i][j] == '1') queue.add(new Point(i, j));
 
-			// for this above found land, we now check for its neighbours
-			while (!queue.isEmpty()) {
-				int size = queue.size();
+                //for the above land start checking its neighbors
+                while (!queue.isEmpty()) {
+                    int size = queue.size();
 
-				for (int i = 0; i < size; i++) {
-					// we use the x,y values to get the grid value
-					Pair p = queue.poll();
-					int x = p.first;
-					int y = p.second;
-					char c = grid[x][y];
+                    for (int k = 0; k < size; k++) {
 
-					// we consider both visited and non visited landmass
-					// because for x,y value, a landmass could be non visited
-					// and connected to only visited nodes ie '2'
-					// so we want non visited nodes while travelling from
-					// both visited nodes ie '2'
-					// and non visited nodes ie '1'
-					if (c == '1' || c == '2') {
+                        Point p = queue.poll();
+                        int x = p.x;
+                        int y = p.y;
+                        char c = grid[p.x][p.y];
 
-						// find neighbours
-						// if exist add to Q to check its subsequent neighbours and mark visited
+                        //add c == 2 later. we should consider both visited and non visited elements becz for x,y value a land could be non  visited and connected                                                   to only visited nodes ie 2.
+                        if (c == '1' || c == '2') {
 
-						if (y + 1 <= grid[0].length - 1 && grid[x][y + 1] == '1') {
-							// right of x,y
-							grid[x][y + 1] = '2';
-							queue.add(new Pair(x, y + 1));
-						}
+                            //find neighbors in all 4 directions
 
-						if (y - 1 >= 0 && grid[x][y - 1] == '1') {
-							// left of x,y
-							grid[x][y - 1] = '2';
-							queue.add(new Pair(x, y - 1));
-						}
+                            //right of x,y and boundary check
 
-						if (x - 1 >= 0 && grid[x - 1][y] == '1') {
-							// top of x,y
-							grid[x - 1][y] = '2';
-							queue.add(new Pair(x - 1, y));
-						}
-
-						if (x + 1 <= grid.length - 1 && grid[x + 1][y] == '1') {
-							// bottom of x,y
-							grid[x + 1][y] = '2';
-							queue.add(new Pair(x + 1, y));
-						}
+                            if (y + 1 <= cols - 1 && grid[x][y + 1] == '1') {
+                                //as we visit each neighbor make it 2 and add it to queue
+                                grid[x][y + 1] = '2';
+                                queue.add(new Point(x, y + 1));
+                            }
 
 
-						// so if the original landmass upon which we landed
-						// was '1', then we increment islands count
-						// and mark it visited;
-						// we only increment count using the original landmass
-						// others are just a neighbour of it ie a continuous landmass
-						if (c == '1') {
-							grid[x][y] = '2';
-							islands++;
-						}
-					}
-				}
-			}
-		}
+                            //left of x,y
+                            if (y - 1 >= 0 && grid[x][y - 1] == '1') {
+                                grid[x][y - 1] = '2';
+                                queue.add(new Point(x, y - 1));
+                            }
 
-	return islands;
-}
+                            //top of x,y
+                            if (x - 1 >= 0 && grid[x - 1][y] == '1') {
+                                grid[x - 1][y] = '2';
+                                queue.add(new Point(x - 1, y));
+                            }
+
+
+                            //bottom of x,y
+                            if (x + 1 <= rows - 1 && grid[x + 1][y] == '1') {
+                                grid[x + 1][y] = '2';
+                                queue.add(new Point(x + 1, y));
+                            }
+
+                            //for the original land upon which we landed was 1 , we increment the island count and mark it visited
+                            //only increment the island count for original land and not for the neighbors
+                            if (c == '1') {
+                                grid[x][y] = '2';
+                                numIslands++;
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+        }
+        return numIslands;
+
+    }
 }
