@@ -8,6 +8,12 @@ Step 1: Find the next state and to store that value we will keep a set, whatever
 Step 2: Now we will check if this key is already present or not.
 Step 3: If not then add into set and increment i and iteration.
 Step 4: If yes that means after this value is already present at this iteration,mark cycle as true and break from loop.
+Step 5: If map contains key then looplength = iteration;
+here c = (N)%looplength;
+remaining days = (N-i)%looplength;
+
+Step 6: Now we will check if loop is true then we will run our loop upto step N%iteration, and it is ovbiously less than 8.
+and we will find that state and return it.
 */
 class Solution {
     public int[] prisonAfterNDays(int[] cells, int n) {
