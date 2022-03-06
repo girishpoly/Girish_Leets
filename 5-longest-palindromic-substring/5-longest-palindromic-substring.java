@@ -1,3 +1,8 @@
+/*
+Time complexity : O(n^2) Since expanding a palindrome around its center could take O(n), the overall complexity is O(n^2)
+
+Space complexity : O(1)
+*/
 class Solution {
     // core logic: with one character and 2 characters as center, find the palindrome for each case, and whenever you encounter the longest palindrome, update it
     // two cases are needed to handle the odd and even cases separately
