@@ -21,56 +21,50 @@ Space Complexity: O(n)
  */
 class Solution {
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-        // initialize an empty result list
+        
+        //initialize empty list to return result
         List<List<Integer>> result = new ArrayList<List<Integer>>();
         
-        // edge case
-        if (root == null) return result;
+        //boundary check
+        if(root ==  null) return result;
         
-        // boolean variable to keep track of the direction to traverse nodes in a level
+        //boolean variable to keep track of if we are doing left to right or right to left direction
         boolean leftToRight = true;
         
-        // we'll be doing a BFS traversal
-        // so declare an empty queue
+        //we will be doing a BFS, so create an empty queue
         Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
         
-        while (!queue.isEmpty()) {
+        while(!queue.isEmpty()){
+            //to keep track of nodes in each level
             int levelSize = queue.size();
             
-            // we'll use LinkedList here instead of ArrayList
-            // since for right to left traversal
-            // we will insert node values at the beginning
-            // and with LinkedList we won't have to shift elements to the right when we do so
-            // which is the case in ArrayList
+            //normally we would use an ArrayList if we are doing regular BFS level by level. Since we are doing zig zag
+            //we should be able to insert nodes at the end and the beginning. So lets use linkedlist
             List<Integer> currentLevel = new LinkedList<>();
             
-            for (int i = 0; i < levelSize; i++) {
+            for(int i = 0 ; i < levelSize ; i++){
+                
                 TreeNode currentNode = queue.poll();
                 
-                if (leftToRight) {
-                    // add node value to end of list
-                    currentLevel.add(currentNode.val);
-                } else {
-                    // add node value to beginning of list
-                    currentLevel.add(0, currentNode.val);
-                }
+                //add node to the end of the list for left to right normal 
+                if(leftToRight) currentLevel.add(currentNode.val);
+                //add node to the beginning of the list
+                else currentLevel.add(0, currentNode.val);
                 
-                // add the children of the node to the queue
-                if (currentNode.left != null) {
-                    queue.offer(currentNode.left);
-                }
+                //now add left and right children of the current node to the queue
+                if(currentNode.left != null) queue.offer(currentNode.left);
+                if(currentNode.right != null) queue.offer(currentNode.right);
                 
-                if (currentNode.right != null) {
-                    queue.offer(currentNode.right);
-                }
             }
-            
+            //current level is done. add the nodes in the current level to the result list
             result.add(currentLevel);
             
-            // reverse the direction for next level
+            //reverse the direction
             leftToRight = !leftToRight;
+            
         }
+        
         
         return result;
     }
