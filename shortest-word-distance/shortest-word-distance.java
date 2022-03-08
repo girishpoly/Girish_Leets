@@ -15,26 +15,15 @@ class Solution {
             if(words[i].equals(word1))
             {
                 word1Index = i;
-                //if both words are found  calculate distance
-                if(word2Index!=-1)
-                {
-                    minDistance = Math.min(minDistance,word1Index-word2Index);
-                }
-                //if recetly word1 is found the next try to find word2
-                word2Index=-1;
             }
             
             if(words[i].equals(word2))
             {
                 word2Index = i;
-                if( word1Index!=-1)
-                {
-                    minDistance = Math.min(minDistance,word2Index-word1Index);
-                }
-                //if recetly word2 is found the next try to find word1
-                word1Index = -1;
             }
             
+            if(word1Index != -1 && word2Index != -1)
+                minDistance = Math.min(minDistance, Math.abs(word1Index - word2Index));
            
         }
         
