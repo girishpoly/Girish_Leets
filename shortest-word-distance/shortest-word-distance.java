@@ -21,7 +21,8 @@ class Solution {
             {
                 word2Index = i;
             }
-            
+            //as we loop through all the elements in the array , we can calculate another time 
+            //when we encounter the same word. If the difference in index is min then we select that
             if(word1Index != -1 && word2Index != -1)
                 minDistance = Math.min(minDistance, Math.abs(word1Index - word2Index));
            
