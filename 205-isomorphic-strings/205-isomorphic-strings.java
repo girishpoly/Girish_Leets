@@ -1,3 +1,10 @@
+/*
+String 1:              A B E A C D B
+index pattern:         0 1 2 0 4 5 1
+
+String 2:              X Y I X H K Y
+index pattern:         0 1 2 0 4 5 1
+*/
 class Solution {
     public boolean isIsomorphic(String s, String t) {
         if (s == null || t == null) return false;
