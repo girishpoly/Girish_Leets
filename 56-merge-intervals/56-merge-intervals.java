@@ -51,6 +51,12 @@ class Solution {
     
     //final pair
     ans.add(new int[]{start , end});
+        
+    /*
+    List interface provides the toArray() method that returns an Object array containing the list elements.
+
+We can also pass an empty array (or array of any size) of the specified type, and JVM will allocate the necessary memory:
+    */
     return ans.toArray(new int[0][]);
 
     }
