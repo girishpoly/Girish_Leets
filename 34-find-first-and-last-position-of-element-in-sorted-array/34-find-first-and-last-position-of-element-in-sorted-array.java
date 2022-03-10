@@ -22,19 +22,25 @@ int binarySearch(int arr[], int x)
         // not present
         return -1;
     }
+    
      0 1 2 3 4 5
     [5,7,7,8,8,10]
    
-   left = 0 , right = 4, mid = 2  
-   nums[2] = 7 ,  7 < 8 , nums[mid] < target, hence left = mid + 1
+   start = 0 , end = 5 , mid = 2
+   if(7 < 8) , start = mid + 1 = 3
    
-   left = 3, right = 4 , mid = 3
-   nums[3] = 8, 8 == 8, (searching left most)
-   index = mid (first index is 3)
-   if(doLeft) right = mid - 1 ;
-   else left = mid + 1;
+   start = 3, end = 5 , mid = 4
+   if(8 == 8 ) ans[0] = 4, end = 3  we find the first occurence at index 4 but we want to go
+   left to find if there is another 8. Hence end = mid - 1
    
-   now left = 3 , right = 2
+  while(3 <= 3)
+  start = 3, end = 3, mid = 3
+  if( 8 == 8) ans[0] = 3, end = 3 - 1 = 2
+  
+  while(3 <= 2) fails
+
+
+In the same way for the second occurence , once target is found we can keep going to the right to find the right most target. Hence start = mid + 1;
     
     
 */
