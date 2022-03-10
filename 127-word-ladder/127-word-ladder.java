@@ -1,77 +1,68 @@
-/*
-https://leetcode.com/problems/word-ladder/discuss/1764726/Java-or-Easy-or-BFS-or-Explained
-*/
 class Solution {
+    /*
+    Approach:
+    Similar to BFS, we will start from beginWord and insert that into a queue
+    now from this word, we will see all possible words we can reach by replacing one character
+    at a time with any character lying between a to z.
+    If new word equals endWord and exists in dictionary we will return there adding 1 to counter.
+    If new word exists in our dictionary, we will add that in our queue and remove that
+    from our dictionary. We will do this for all possible words.
+    Now whatever words are there in queue, they will be of same level 
+    (those words have been reached from same level word). So once all words of queue are processed at a 
+    level, we will increase our counter.
+    */
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
-	var words = new HashSet<>(wordList);
-	if (!words.contains(endWord))
-		return 0;
-		
-	var adjList = getAdjList(beginWord, words);
-	var q = new ArrayDeque<>(List.of(beginWord));
-	var length = 0;
-
-	while (!q.isEmpty()) {
-		length++;
-
-		for (var i = q.size(); i > 0; i--) {
-			var word = q.poll();
-
-			for (var neighbor : adjList.getOrDefault(word, List.of())) {
-				if (neighbor.equals(endWord))
-					return length + 1;
-				q.add(neighbor);
-			}
-
-			// remove the processed word to avoid circular loop
-			adjList.remove(word);
-		}
-	}
-
-	return 0;
-}
-
-/**
- * Two words are neighbors if they differ by exactly 1 letter
- *
- * @param beginWord source word
- * @param words set of words
- * @return adjacency list of the graph representation of the words and their neighbors
- */
-private Map<String, List<String>> getAdjList(String beginWord, Set<String> words) {
-	var adjList = new HashMap<String, List<String>>();
-	populateAdjList(words, adjList, beginWord);
-	for (var word : words)
-		populateAdjList(words, adjList, word);
-	return adjList;
-}
-
-/**
- * Populate the adjacency list with the neighbors of the current word
- * 
- * @param words set of words
- * @param adjList adjacency list of the graph
- * @param word current node
- */
-private void populateAdjList(Set<String> words, Map<String, List<String>> adjList, String word) {
-	var wordArr = word.toCharArray();
-
-	for (var i = 0; i < wordArr.length; i++) {
-		for (var j = 'a'; j <= 'z'; j++) {
-			// if letter is the same as original, skip it. e.g. don't change hot to hot, when j = h
-			if (word.charAt(i) == j)
-				continue;
-			
-			// change one letter at a time
-			wordArr[i] = j;
-			
-			var neighbor = new String(wordArr);
-			if (words.contains(neighbor))
-				adjList.computeIfAbsent(word, k -> new ArrayList<>()).add(neighbor);
-		}
-
-		// restore the original letter
-		wordArr[i] = word.charAt(i);
-	}
-}
+        Queue<String> queue = new LinkedList<>();
+        // converting to set as set remove() takes O(1) time while list remove() takes O(n)
+        HashSet<String> dict = new HashSet<>(wordList);
+        if(!dict.contains(endWord)){
+            return 0;
+        }
+        if(beginWord.equals(endWord)){
+            return 1;
+        }
+        
+        queue.add(beginWord);
+        int count = 1; // 1 for beginWord
+        while(queue.size()>0){
+            int size = queue.size();
+            // for all words at current level
+            for(int i=0; i<size; i++){
+                char[] word = queue.poll().toCharArray();
+                // we will replace each char one by one with [a,z] and check if it exists in our dictionary
+                for(int j=0; j<word.length; j++){
+                    char tmp = word[j];
+                    for(char c='a'; c<='z'; c++){
+                        word[j] = c;
+                        String newWord = new String(word); // next word after replacing jth character
+                        if(dict.contains(newWord)){
+                            if(newWord.equals(endWord)){
+                                return count + 1;
+                            }
+                            queue.add(newWord);
+                            dict.remove(newWord);
+                        }
+                    }
+                    word[j] = tmp; // resetting to actual word for next iteration of inner for loop.
+                }
+            }
+            // we have checked for all next words reachable from current queue, Hence
+            count += 1; 
+        }
+        // reaching here means we have not found endWord, yet return 0
+        return 0;
+    }
+    
+    /*
+    Time Complexity: N is size of dictionary, M is say length of each word
+    O(N) - to iterate over each word of dictionary
+    O(M) - to convert word to char array
+    O(M) - looping for each char
+    26 - to reach each possible word from a word
+    O(M) - to convert charArray to String
+    O(M) - to compare two words
+    Inner for loop --> O(M)*26* (O(M) + O(M)) --> O(M^2)
+    Time Complexity including outer-inner for loop --> O(N) * ( O(M)+O(M^2) )
+    Final Time Complexity - O(N*M^2)
+    */
 }
