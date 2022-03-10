@@ -1,3 +1,18 @@
+/*
+Time complexity : O(n\log{}n)O(nlogn)
+
+Other than the sort invocation, we do a simple linear scan of the list, so the runtime is dominated by the O(n\log{}n)O(nlogn) complexity of sorting.
+
+Space complexity : O(\log N)O(logN) (or O(n)O(n))
+
+If we can sort intervals in place, we do not need more than constant additional space, although the sorting itself takes O(\log n)O(logn) space. Otherwise, we must allocate linear space to store a copy of intervals and sort that.
+
+First we sort the list based on interval[i][0];
+Compare end of current to start of next -
+i) if end of current is larger than start of next then we merge the interval but not add to list to check further intervals(we track this with s,e,start and end variables)
+ii) if above condition is not met then we add interval to list(start,end).
+we convert list to array and return.
+*/
 class Solution {
     public int[][] merge(int[][] intervals) {
         //create empty dynamic array
