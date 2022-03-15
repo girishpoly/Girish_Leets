@@ -33,6 +33,23 @@ Similar to the DFS approach. Each nested element is put on the queue and removed
 Space complexity : O(N).
 
 The worst-case for space complexity O(N).
+
+queue = [1,1],2,[1,1]
+
+if integer add to total or else add list elements to end of queue
+
+queue = 2, [1,1], 1 ,1
+
+total = 2
+
+queue = 1,1,1,1
+total = 2
+end of first queue iteration since initial size was 3.
+
+but queue is still not empty. 
+increment depth
+
+total = 2 + 2 * 1 + 2 *1 + 2*1+2*1 = 10
  */
 class Solution {
     public int depthSum(List<NestedInteger> nestedList) {
