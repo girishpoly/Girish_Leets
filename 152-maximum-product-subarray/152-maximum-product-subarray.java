@@ -40,11 +40,13 @@ class Solution {
         
         for (int i = 1; i < nums.length; i++) {
             
-            int temp = max;  // store the max because before updating min your max will already be updated
             
-            max = Math.max(Math.max(max * nums[i], min * nums[i]), nums[i]);
-            min = Math.min(Math.min(temp * nums[i], min * nums[i]), nums[i]);
             
+            int temp = Math.max(nums[i] * max, Math.max(nums[i] * min, nums[i]));
+            
+            min = Math.min(nums[i] * max, Math.min(nums[i] * min, nums[i]));
+            
+            max = temp;
             if (max > ans) {
                 ans = max;
             }
