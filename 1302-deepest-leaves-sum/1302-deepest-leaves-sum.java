@@ -34,7 +34,9 @@ class Solution {
             return 0;
         Queue<TreeNode> q = new LinkedList<>();
         q.add(root);
+        
         int ans = 0, qlen = 0;
+        
         while (q.size() > 0) {
             qlen = q.size();
             ans = 0;
