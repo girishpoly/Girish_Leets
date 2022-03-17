@@ -28,7 +28,7 @@
  
  Time complexity : O(N).
 
-Similar to the DFS approach. Each nested element is put on the queue and removed from the queue exactly once.
+Similar to the BFS approach. Each nested element is put on the queue and removed from the queue exactly once.
 
 Space complexity : O(N).
 
