@@ -16,37 +16,29 @@
     }
 */
 class Solution {
-     public int search(int[] nums, int target) {
-         
-         //boundary checks
-        if(nums == null || nums.length == 0)    return -1;
-        
-        int left = 0;
-        int right = nums.length - 1;
-        
-        while(left <= right) {          // While we have a valid segment
-            
-            int mid = left + (right - left) / 2;
-            
-            if(target == nums[mid])     // CASE-1: Found target :)
-                return mid;
-            
-            
-            if(nums[mid] <= nums[right]) {      // CASE-2: Right half is sorted
-                if(target > nums[mid] && target <= nums[right])
-                    left = mid + 1;             // Go searching in right sorted half
-                else 
-                    right = mid - 1;            // Else Go searching in left sorted half
-            }
-            
-            else {                     // CASE-3: Left half is sorted, nums[left] <= nums[mid]
-                if(nums[left] <= target && target < nums[mid])
-                    right = mid - 1;            // Go searching in left sorted half
-                else
-                    left = mid + 1;             // Else Go searching in right sorted half
-            }
-            
+    public int search(int[] nums, int target) {
+        if (nums == null || nums.length == 0) {
+            return -1;
         }
-        return -1;                              // target not found
+        int l = 0;
+        int r = nums.length - 1;
+        while(l<r){
+            int mid = (l+r)/2;
+            if(nums[mid] == target)
+                return mid;
+            if(nums[l] <= nums[mid]){ //checking if first half array is sorted if so
+                if(nums[l] <= target && target < nums[mid]){ //check if target lies in the range if so
+                    r = mid - 1;                              // search in first half only
+                }else                                         //else search in second half
+                    l = mid + 1;
+            }else{  //if first half isn't sorted go and check for second
+                if(nums[mid] < target && target <= nums[r]){ //check if target lies in second half
+                    l = mid + 1;                             //if so search in second half
+                }else{
+                    r = mid - 1;
+                }
+            }
+        }
+        return nums[l] == target ? l : -1;
     }
 }
