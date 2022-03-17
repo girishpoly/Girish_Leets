@@ -22,7 +22,8 @@ If the number of negative elements is odd then you have to remove just one negat
 
 Case3 :- Array also contains 0 : Then there will be not much difference...its just that your array will be divided into subarray around that 0. What u have to so is just as soon as your product becomes 0 make it 1 for the next iteration, now u will be searching new subarray and previous max will already be updated.
 
-For each index i keep updating the max and min. We are also keeping min because on multiplying with any negative number your min will become max and max will become min. So for every index i we will take max of (i-th element, prevMax * i-th element, prevMin * i-th element).
+For each index i keep updating the max and min. We are also keeping min because on multiplying with any negative number your min will become max and max will become min. 
+So for every index i we will take max of (i-th element, prevMax * i-th element, prevMin * i-th element).
 */	
 
 class Solution {
