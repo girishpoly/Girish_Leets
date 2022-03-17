@@ -20,9 +20,18 @@ The trick is to deal with a single row at a time by making note of the length of
 In this case, processing a node simply means accumulating the running total (ans) for the row and then moving any children of the node onto the end of the queue.
 
 When we start a new row, we can reset ans back to 0, and then just keep processing rows until q is empty. The last value of ans should be our final answer, so we should return ans.
+
+If the Queue is empty, then we have summed the final row.
+If the Queue is not empty, then we need to reset the sum and sum the remaining row(s).
+
+ime complexity: O(N) since one has to visit each node.
+
+Space complexity: up to O(N) to keep the queues.
  */
 class Solution {
     public int deepestLeavesSum(TreeNode root) {
+         if(root == null)
+            return 0;
         Queue<TreeNode> q = new LinkedList<>();
         q.add(root);
         int ans = 0, qlen = 0;
