@@ -22,42 +22,36 @@ int binarySearch(int arr[], int x)
         // not present
         return -1;
     }
+    
+    
+    start = 0 , end = 2, mid = 1
+    if(a <  f) end = mid - 1 = 0
+    
+    
 */
 //we can use binary search since the array is sorted
-//find find possible Ans and loop until the while loop fails
 class Solution {
-public char nextGreatestLetter(char[] letters, char target) {
-
-    //ascending order = non-decreasing order
-    //Concept = ceiling of character using binary search
-    //O(logn) - Time complexity
-    
-    int start = 0;
-    int end = letters.length-1;
-    
-    /*As letters are wrapped around so, if there is no element greater than our target, we             will return the array[0]*/
-    if(target >= letters[letters.length - 1])
-    {
-        return letters[0];
-    }
-    
-    while(start<=end)
-    {
-        int mid = start+(end-start)/2; 
-        /*Here we are declaring mid in this way, so that if start and end have large values,
-          (start+end) might cross the limit. So, to play safe, it is better to                             initalise mid in the above way.
-        */
+  public char nextGreatestLetter(char[] letters, char target) {
+        int n = letters.length;
         
-        if(target<letters[mid])
-        {
-            end = mid-1;
+        // The array is considered circular, which means if the ‘target’ is bigger than the last letter of the array or if it is smaller than the first letter of the array, the target’s next letter will be the first letter of the array
+        if (target < letters[0] || target > letters[n - 1]) {
+            return letters[0];
         }
-        else
-        {
-            start = mid+1;
+        
+        int low = 0, high = n - 1;
+        
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            
+            if (target < letters[mid]) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
         }
+        
+        // since the loop is running until 'low <= high', at the end of the while loop, 'low == high+1'
+        return letters[low % n];
     }
-    
-    return letters[start];
-}
 }
