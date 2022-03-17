@@ -24,6 +24,13 @@ Case3 :- Array also contains 0 : Then there will be not much difference...its ju
 
 For each index i keep updating the max and min. We are also keeping min because on multiplying with any negative number your min will become max and max will become min. 
 So for every index i we will take max of (i-th element, prevMax * i-th element, prevMin * i-th element).
+
+    [2, 3, -2, 4, -2, 0, 20]
+
+
+max :2 6  6    6   96 
+min :2 2 -12  -48  -48
+
 */	
 
 class Solution {
