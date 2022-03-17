@@ -24,34 +24,25 @@ int binarySearch(int arr[], int x)
     }
     
     
-    start = 0 , end = 2, mid = 1
-    if(a <  f) end = mid - 1 = 0
+ The idea is to perform a modified binary search to find the next element in the array that is greater than the target. If we find the target in the array, we don't stop, we move to the right half of the array. Since the array is circular, the next greater element of the last element is the first element. Hence we need to find the modulus so that we can have the first element as the result.
+
+Time Complexity: O(log n)
+Space Complexity: O(1)
     
     
 */
 //we can use binary search since the array is sorted
 class Solution {
-  public char nextGreatestLetter(char[] letters, char target) {
-        int n = letters.length;
+    public char nextGreatestLetter(char[] letters, char target) {
+        int lo=0, hi=letters.length-1;
+        if(target >= letters[hi]) return letters[lo];
         
-        // The array is considered circular, which means if the ‘target’ is bigger than the last letter of the array or if it is smaller than the first letter of the array, the target’s next letter will be the first letter of the array
-        if (target < letters[0] || target > letters[n - 1]) {
-            return letters[0];
+        while(lo <= hi){
+            int mid=lo + (hi-lo)/2;
+            if(target >= letters[mid])
+                lo = mid + 1;
+            else hi = mid - 1;
         }
-        
-        int low = 0, high = n - 1;
-        
-        while (low <= high) {
-            int mid = low + (high - low) / 2;
-            
-            if (target < letters[mid]) {
-                high = mid - 1;
-            } else {
-                low = mid + 1;
-            }
-        }
-        
-        // since the loop is running until 'low <= high', at the end of the while loop, 'low == high+1'
-        return letters[low % n];
+        return letters[lo];
     }
 }
