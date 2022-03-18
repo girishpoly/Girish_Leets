@@ -1,3 +1,8 @@
+/*
+Time Complexity: O(NKlogK), where NN is the length of strs, and KK is the maximum length of a string in strs. The outer loop has complexity O(N) as we iterate through each string. Then, we sort each string in O(KlogK) time.
+
+Space Complexity: O(NK), the total information content stored in ans.
+*/
 class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
         List<List<String>> result =new ArrayList<>();
