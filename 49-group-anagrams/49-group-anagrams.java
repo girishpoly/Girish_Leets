@@ -10,11 +10,13 @@ class Solution {
             }
             map.get(s).add(strs[i]);// add in the list  
         }
+        
         for(List<String> list : map.values()){
             result.add(list);
         }
         return result;
     }
+    
     public String sortStr(String s){
         char c[]=s.toCharArray();
         Arrays.sort(c);
