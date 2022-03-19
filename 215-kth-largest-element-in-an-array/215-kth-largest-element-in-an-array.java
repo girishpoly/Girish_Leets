@@ -1,3 +1,7 @@
+/*
+Time complexity : O(Nlogk).
+Space complexity :O(k) to store the heap elements.
+*/
 class Solution {
     public int findKthLargest(int[] nums, int k) {
         
