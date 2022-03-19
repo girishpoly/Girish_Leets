@@ -22,6 +22,12 @@ class Solution {
         
         ArrayList<String> result = new ArrayList<>();
         
+   /*
+   The string is a number.This code will convert the string into an integer array.
+string.charAt(i) will return a character and string.charAt(i)- '0' will return the actual integer value.
+For e.g. string="12345",this method will return an integer array [1,2,3,4,5].
+   */
+        
         for(int i=0; i<digits.length(); i++) {
             result = combine(dict[digits.charAt(i)-'0'].toCharArray(), result);
         }
