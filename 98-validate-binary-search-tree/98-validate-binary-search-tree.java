@@ -13,21 +13,32 @@
  *     }
  * }
  */
+/**We have used here the concept that if it a BST then while traversing it in inoder we will get an increasing order array or list whatever you have used in inorder to collect.*/
+
 class Solution {
-   public boolean isValidBST(TreeNode root) {
-   if (root == null) return true;
-   Stack<TreeNode> stack = new Stack<>();
-   TreeNode pre = null;
-   while (root != null || !stack.isEmpty()) {
-      while (root != null) {
-         stack.push(root);
-         root = root.left;
-      }
-      root = stack.pop();
-      if(pre != null && root.val <= pre.val) return false;
-      pre = root;
-      root = root.right;
-   }
-   return true;
-}
+    public boolean isValidBST(TreeNode root) {
+        ArrayList<Integer> list=new ArrayList<>();
+        helper(root,list);
+        System.out.println(list);
+        for(int i =0;i<list.size()-1;i++){
+            if(list.get(i+1)<=list.get(i)){
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public List<Integer> helper(TreeNode root,ArrayList<Integer> list){
+        if(root==null){
+            return new ArrayList<>();
+        }
+        
+       helper(root.left,list);
+        
+        list.add(root.val);
+      helper(root.right,list);
+        
+        
+        return list;
+    }
 }
