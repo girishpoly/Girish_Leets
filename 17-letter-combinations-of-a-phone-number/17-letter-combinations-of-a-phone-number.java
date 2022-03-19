@@ -11,17 +11,19 @@ class Solution {
             put('8', "tuv");
             put('9', "wxyz");
           }};
+        
         List<String> ls = new ArrayList<>();
         // if "digits" is empty return empty list
         if(digits.length() == 0) {
             return ls;
         }
+        
         StringBuilder sb = new StringBuilder();
         backtrack(sb, digits, ls, phone, 0);
         return ls;
     }
     
-    public void backtrack(StringBuilder sb, String digits, List<String> ls, Map<Character, String> phone, int start) {
+    public void backtrack(StringBuilder sb, String digits, List<String> ls,                   Map<Character, String> phone, int start) {
         if(sb.length() == digits.length()) {
             ls.add(sb.toString());
             return;
