@@ -6,7 +6,7 @@ class Solution {
         }
         
         Map<String, Integer> map = new HashMap<>();
-        String[] strs = paragraph.toLowerCase().split("\\W+");
+        String[] strs =  paragraph.replaceAll("[^a-zA-Z0-9 ]", " ").toLowerCase().split("\\s+");
         int max = 0;
         String res = "";
 
