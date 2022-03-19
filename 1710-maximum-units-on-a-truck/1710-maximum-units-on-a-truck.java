@@ -1,7 +1,7 @@
 class Solution {
     public int maximumUnits(int[][] boxTypes, int truckSize) {
         
-        //sort the given boxTypes based on the number of units
+        //sort the given boxTypes based on the number of units in decreasing order
         
         Arrays.sort(boxTypes, (a,b) -> b[1] - a[1]);
         
