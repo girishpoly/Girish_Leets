@@ -1,43 +1,41 @@
 class Solution {
-    public int shipWithinDays(int[] weights, int D) {
-        int start = 0;
-        int end = 0;
-        int result = -1;
-        int N = weights.length;
+    public int shipWithinDays(int[] weights, int days) {
+        int max_element = 0; //if we go one weight at a time then least we can put is the max element
+        int sum_elements = 0; //if all elements are put together then sum of them will be the value
         
-        for(int weight : weights){
-            end+=weight;
-            start = Math.max(start,weight);
+        for(int i = 0;i<weights.length;i++){
+        max_element = Math.max(max_element,weights[i]);
+        sum_elements+=weights[i];
         }
+        
+        int start = max_element;
+        int end = sum_elements;
+        int ans = 0;
         
         while(start<=end){
-            int mid = start+(end-start)/2;
-            
-            if(isValid(weights,D,N,mid) == true){
-                result = mid;
-                end = mid-1;
+            int mid = start+(end-start)/2;  // mid is the value of weight that is going to be put each day.
+            if(isAnswer(weights,days,mid)){ //if it is possible to go with mid weight then
+                ans = mid; //answer will be mid weight
+                end = mid-1; // but we might have a lesser than mid as well so decreasing end to check that
+            }else{
+                start = mid+1; //if mid is not possible then clearly mid is too small to cover all elements in given days so to increase mid, we increase start
             }
-            else
-                start = mid+1;
         }
-        return result;
+        return ans; 
     }
     
-    private boolean isValid(int[] weights,int D,int N,int mid){
-        int days =1;
-        int sum = 0;
-        
-        for(int i = 0;i<N;i++){
-            sum+=weights[i];
-            
-            if(sum>mid){
-                days++;
-                sum = weights[i];
+        public boolean isAnswer(int[] weights,int days,int ans){
+            int sum = 0; //sum of current consecutive elements
+            int curr_day = 1;  //current no. of days, streak basically
+            for(int i = 0;i<weights.length;i++){ 
+                if(sum+weights[i]>ans){ //if current sum + latest element exceeds the mid weight then we will have to go next day
+                    curr_day++; //we will start with the next set of weights from the next day
+                    sum = weights[i]; //put the current weight element as the sum and then in this sum start adding the next element onwards to check with mid again if it exceeds sum 
+                }else{
+                    sum+=weights[i]; //we build a streak of sum of elements for the current day,
+                }
             }
-            
-            if(days>D)
-                return false;
+            return (curr_day<=days);
         }
-        return true;
+        
     }
-}
