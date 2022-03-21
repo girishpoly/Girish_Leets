@@ -1,42 +1,42 @@
 class Solution {
-    public boolean canFinish(int numCourses, int[][] prerequisites) {
-        // adjacency list
-        ArrayList<List<Integer>> adlist = new ArrayList<List<Integer>>(numCourses);
-        // incoming edge count of each node
-        int[] edgeCount = new int[numCourses];
-        
-        // initialize adj list
-        for(int i = 0; i < numCourses; i++){
-            LinkedList<Integer> list = new LinkedList<Integer>();
-            adlist.add(list);
-        }
-        
-        // process into adj list and count incoming edges
-        for(int[] relation : prerequisites){
-            edgeCount[relation[0]]++;
-            adlist.get(relation[1]).add(relation[0]);
-        }
-        
-        // prepare queue for topological sorting BFS
-        Queue<Integer> q = new LinkedList<Integer>();
-        for(int i = 0; i < edgeCount.length; i++){
-            if(edgeCount[i] == 0)
-                q.add(i);
-        }
-        
-        // start BFS. if finish, the edge count should now be 0. otherwise, there are still nodes left because of cycle
-        int totalEdges = prerequisites.length;
-        while(!q.isEmpty()){
-            int prereq = q.poll();
-            for(int course : adlist.get(prereq)){
-                edgeCount[course]--;
-                if(edgeCount[course] == 0)
-                    q.add(course);
-                totalEdges--;
+public boolean canFinish(int numCourses, int[][] prerequisites) {
+        int[] indeg = new int[numCourses]; // indeg array
+        List<List<Integer>> adj = new ArrayList<>(); // grap adjacency matrix
+        createGraph(adj,indeg, prerequisites); // create graph from given prereq.
+        return bfs(adj, indeg); // do bfs
+    }
+    
+    boolean bfs(List<List<Integer>> adj, int[] indeg) {
+        Queue<Integer> q = new LinkedList<>(); // add only those with 0 indegree
+		// because 0 indeg means no prerequired course to be done for that
+        for (int i = 0; i < indeg.length; i++) {
+            if (indeg[i] == 0) {
+                q.offer(i); // add to queue
             }
         }
-        
-        return totalEdges == 0; 
+        int count = 0; // count 
+        while (!q.isEmpty()) {
+            int u = q.poll(); 
+            for (int i : adj.get(u)) {
+                if (--indeg[i] == 0) { // traverse every node connected with 0 indegree
+                    q.offer(i);// add to q iff indegree becomes 0
+                }
+            }
+            count++;
+        }
+        return count == indeg.length; 
+    }
+    
+    void createGraph(List<List<Integer>> adj, int []indeg, int[][] g) {
+        for (int i = 0; i < indeg.length; i++) {
+            adj.add(new ArrayList<>());
+        }
+        for (int i = 0; i < g.length; i++) {
+		// add every source to destination in graph
+		// for every destination, increment indegree count by 1
+            adj.get(g[i][1]).add(g[i][0]);
+            indeg[g[i][0]]++;
+        }
     }
     
 }
