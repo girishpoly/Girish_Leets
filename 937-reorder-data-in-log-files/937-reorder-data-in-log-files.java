@@ -1,40 +1,30 @@
 class Solution {
-       public String[] reorderLogFiles(String[] logs) {
-        
-        List<String> digitLogs = new ArrayList();
-        List<String> letterLogs = new ArrayList();
-        
-        for(String s:logs){
-            
-            String[] str = s.split(" ");
-            if(Character.isDigit(str[1].charAt(0))){
-                digitLogs.add(s);
-            }else{
-                letterLogs.add(s);
-            }
-        }
-        
-        Collections.sort(letterLogs,new Comparator<String>(){
-           
-            @Override
-            public int compare(String first, String second){
-             
-                String firstVals = first.substring(first.indexOf(" ")+1);
-                String secondVals = second.substring(second.indexOf(" ")+1);
-                
-                if(firstVals.equals(secondVals)){
-                    return first.split(" ")[0].compareTo(second.split(" ")[0]); 
-                }
-                
-                return firstVals.compareTo(secondVals);
-                
-            }
-            
+    /*
+      Grab all letter logs
+      sort them by substring, or identifier
+      then put all digit logs after
+    */
+    public String[] reorderLogFiles(String[] logs) {
+        List<String> letterLogs = new ArrayList<String>(logs.length);
+        List<String> digitLogs = new ArrayList<String>(logs.length);
+        for(String log : logs)
+          if(isLetterLog(log))
+            letterLogs.add(log);
+          else
+            digitLogs.add(log);
+        Collections.sort(letterLogs, (a,b) -> {
+          String aLog = a.substring(a.indexOf(" "));
+          String bLog = b.substring(b.indexOf(" "));
+          if(aLog.equals(bLog))
+            return a.compareTo(b);
+          else
+            return aLog.compareTo(bLog);
         });
-        
-        letterLogs.addAll(digitLogs);
-        return letterLogs.toArray(new String[letterLogs.size()]);
-        
-        
+      letterLogs.addAll(digitLogs);
+      return letterLogs.toArray(new String[letterLogs.size()]);
+    }
+  
+    private boolean isLetterLog(String log){
+      return Character.isLetter(log.charAt(log.indexOf(" ")+1));
     }
 }
