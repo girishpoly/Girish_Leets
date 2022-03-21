@@ -9,7 +9,7 @@ class Solution {
                end++;                  // Increment the end index if nums[start] and nums[end] is equal
            }
            else {
-		   //Assign nums[end] to nums[start+1] as nums[start] and nums[end[ is not equal and increment start, end indexes and count
+		   //Assign nums[end] to nums[start+1] as nums[start] and nums[end] is not equal and increment start, end indexes and count
                nums[start+1]=nums[end];  
                start++;
                end++;
