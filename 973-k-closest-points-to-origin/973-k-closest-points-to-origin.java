@@ -1,40 +1,47 @@
 class Solution {
     public int[][] kClosest(int[][] points, int k) {
+        PriorityQueue<Point> heap = new PriorityQueue<Point>( points.length, new HeapComparator());
         
-        if(points.length == 0){
-            return points;
+        for(int r = 0; r< points.length;r++){
+            heap.add(new Point(points[r][0], points[r][1]));
+        }     
+        
+        int[][] ans = new int[k][2];
+        
+        
+        for(int c = 0;c<k; c ++){
+            Point p = heap.poll();
+            ans[c][0] = p.x;
+            ans[c][1] = p.y;
         }
         
-        HashMap<Integer, Integer> map = new HashMap<>();
-        
-        for(int i = 0 ; i < points.length ; i++){
-            
-            int[] p = points[i];
-            
-            int len = p[0]*p[0]+p[1]*p[1];
-            
-            map.put(i, len);
-            
-        }
-        
-        PriorityQueue<Integer> pq = new PriorityQueue<Integer>(k,
-            (s1, s2) -> map.get(s1) - map.get(s2));
+        return ans;
         
         
-        for(int p : map.keySet()){
-            pq.add(p);
-        }
         
-        int[][] result = new int[k][2];
-        
-        for(int j = 0 ; j < k ; j++){
-            
-            int index = pq.poll();
-            result[j] = points[index];
-            
-        }
-        
-        return result;
-        
+    }
+}
+
+class Point{
+    int x;
+    int y;
+    
+    Point(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
+    
+    public int getX(){
+        return this.x;
+    }
+    
+    public int getY(){
+        return this.y;
+    }
+}
+
+class HeapComparator implements Comparator<Point>{
+    public int compare(Point a , Point b){
+        return  ((a.x*a.x) + (a.y*a.y)) - ((b.x*b.x) + (b.y*b.y));
     }
 }
