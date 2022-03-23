@@ -1,3 +1,12 @@
+/*
+https://leetcode.com/problems/paint-house/discuss/1787489/JAVA-Multiple-approaches-explained-with-comments
+
+Time complexity : O(nm^2)
+we iterate over each of n.m cells. for each cell we are finding the minimum of the k values in the row above. multiply by O(m). O(nm^2)
+
+Space complexity : O(1) in place
+*/
+
 class Solution {
      public int minCostII(int[][] costs) {
         
