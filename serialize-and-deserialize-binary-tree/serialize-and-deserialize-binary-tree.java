@@ -6,6 +6,7 @@
  *     TreeNode right;
  *     TreeNode(int x) { val = x; }
  * }
+ O(n) time and O(n) space, BFS traversal
  */
 public class Codec {
     public String serialize(TreeNode root) {
