@@ -25,10 +25,13 @@ class Solution {
     public int maxPoints(int[][] points) {
         if(points.length <= 2)
             return points.length;
-        Double m = null; // slope.               
+        
+        Double m = null; // slope.       
+        
         Map<Double, Integer> slopeAndLines = new HashMap<>(); // Maps slope to number of points on it
         int max = 0; // tracks the slope with max points for a point
         int result = 0;// track final answer
+        
         for(int i = 0; i < points.length - 1; i++)
         {           
             slopeAndLines.clear();
@@ -49,12 +52,14 @@ class Solution {
                     slopeAndLines.put(m, 2);
                 else
                     slopeAndLines.put(m, slopeAndLines.get(m) + 1);
-                int val = slopeAndLines.get(m);                
-                if(max < val)
-                    max = val;
+                
+                int val = slopeAndLines.get(m);              
+                
+                max = Math.max(max, val);
+               
             }
-            if(result < max)
-                result = max;
+            
+            result = Math.max(result,max);
         }       
         return result;
     }    
