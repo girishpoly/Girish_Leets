@@ -14,6 +14,13 @@
      *  Since a is a rational, there exists y0 and x0, y0/x0=(y3-y1)/(x3-x1)=(y2-y1)/(x2-x1)=a
 
      *  So we can use y0&x0 to track a line;
+     
+     First start with 1 point and calcualte the slope with all the other points. i = 0 , j = i = 1
+     store the slope as key and updat the value based on slope calculation. Once all j values are done, pick up the max value from current iteration.
+     
+     clear the hashmap for next iteration
+     
+     start over again and after doing all the points to points slope calculation get result by max(result, max)
      */
 class Solution {
     
