@@ -23,37 +23,39 @@ class Solution {
     // Check the straight lines point by point
     
     public int maxPoints(int[][] points) {
-        
-        int n = points.length;
-  
-        if (n <= 2)
-            return n;
-        
-        int result = 0;
-        
-        for (int i = 0; i < n; i++)
-        {
-            Map<Double, Integer> map = new HashMap<>();
-            
-            for (int j = 0 ; j < n; j++)
-            {  
-                if (i == j)
-                    continue;  
-                 
-                double slope = 0.0;  
-                
-                if (points[i][0] == points[j][0])
-                    slope = Double.MAX_VALUE;
+        if(points.length <= 2)
+            return points.length;
+        Double m = null; // slope.               
+        Map<Double, Integer> slopeAndLines = new HashMap<>(); // Maps slope to number of points on it
+        int max = 0; // tracks the slope with max points for a point
+        int result = 0;// track final answer
+        for(int i = 0; i < points.length - 1; i++)
+        {           
+            slopeAndLines.clear();
+            for(int j = i + 1; j < points.length;j++)
+            {                
+                if(points[j][0] - points[i][0] != 0)
+                {
+                    m = ((double)(points[j][1] - points[i][1])/(points[j][0] - points[i][0]));            
+                }  
                 else
-                    slope = (double)(points[i][1]-points[j][1]) / (double)(points[i][0]-points[j][0]);
+                {                    
+                    m = null;// horizontal line; Saving it as null will ensure it won't be counted towards other lines with slope = 1.                    
+                }                
+                if(m != null && m == -0.0) // issue with hashmap treating 0.0 and -0.0 as separate keys.
+                    m = 0.0;
                 
-                map.put(slope, map.getOrDefault(slope, 0) + 1);
+                if(!slopeAndLines.containsKey(m))
+                    slopeAndLines.put(m, 2);
+                else
+                    slopeAndLines.put(m, slopeAndLines.get(m) + 1);
+                int val = slopeAndLines.get(m);                
+                if(max < val)
+                    max = val;
             }
-                
-            for (int count : map.values())
-                result = Math.max(result, 1 + count); // 1 means itself
-        }
-    
-        return result; 
-    }
+            if(result < max)
+                result = max;
+        }       
+        return result;
+    }    
 }
