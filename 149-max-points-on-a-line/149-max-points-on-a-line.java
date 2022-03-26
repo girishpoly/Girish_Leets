@@ -43,7 +43,7 @@ class Solution {
                 }  
                 else
                 {                    
-                    m = null;// horizontal line; Saving it as null will ensure it won't be counted towards other lines with slope = 1.                    
+                    m = Double.MAX_VALUE;// horizontal line; Saving it as null will ensure it won't be counted towards other lines with slope = 1.                    
                 }                
                 if(m != null && m == -0.0) // issue with hashmap treating 0.0 and -0.0 as separate keys.
                     m = 0.0;
