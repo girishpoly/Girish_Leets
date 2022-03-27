@@ -15,7 +15,93 @@
  
  o(n), space is for recursive calls O(n)
  
+ DFS - go through entire depth of the tree , remove leaf nodes and backtrack
  
+ at every iteration mark the leaves as null so we don't process them again. 
+ 
+     1
+  2     3
+  
+4   5
+
+res : []
+root = 1 tempList: []
+node = 1
+
+     1                   
+  2     3        
+  
+4   5
+ 
+res : []
+root = 1 tempList: [4]
+node = 1
+mark 4 as null
+
+     1                   
+  2     3        
+  
+n   n
+
+res : []
+root = 1 tempList: [4,5]
+node = 1
+mark 5 as null
+
+     1                   
+  2     n        
+  
+n   n
+
+res : []
+root = 1 tempList: [4,5,3]
+node = 1
+mark 3 as null
+
+     1                   
+  2     n        
+  
+n   n
+
+res : [[4,5,3],]
+root = 1 tempList: [4,5,3]
+node = 1
+mark 3 as null
+
+
+again recursivley call DFS with node as 1
+
+     1                   
+  2n     n        
+  
+n   n
+
+res : [[4,5,3], [2]]
+root = 1 tempList: [2]
+node = 1
+
+2 is leaf node , mark it as null and return back to 1
+
+
+     1                   
+  n     n        
+  
+n   n
+
+res : [[4,5,3], [2] , [1]]
+root = 1 tempList: [1]
+node = 1
+
+1 is only leaf node , mark it as null
+
+
+     n                  
+  n     n        
+  
+n   n
+res : [[4,5,3], [2] , [1]]
+
+root becomes null and exits while loop
  */
 class Solution {
     public List<List<Integer>> findLeaves(TreeNode root) {
@@ -27,6 +113,8 @@ class Solution {
         
         while(root != null){
             List<Integer> tmpList = new ArrayList();
+            //create a tmpList for each iteration and pass it to our helper method so it gets filled with the leaf nodes
+            //for every iteration
             root = dfs(root, tmpList);
             result.add(tmpList);
         }
@@ -34,6 +122,7 @@ class Solution {
         return result;
         
     }
+    
     
     private TreeNode dfs(TreeNode node, List<Integer> list){
         
