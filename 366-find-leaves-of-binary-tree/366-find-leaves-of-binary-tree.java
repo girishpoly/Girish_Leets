@@ -14,44 +14,23 @@
  * }
  */
 class Solution {
+    List<List<Integer>> ret = new ArrayList();
     public List<List<Integer>> findLeaves(TreeNode root) {
-        List<List<Integer>> result = new ArrayList<>();
-        List<Integer> leaves = null; 
         while(root != null){
-              if(root !=null &&  root.left == null && root.right == null){
-                leaves = new ArrayList<>(); 
-                leaves.add(root.val);
-                result.add(leaves);
-                break;
-            }
-            
-            leaves = new ArrayList<>(); 
-            dfs(root,leaves);
-            result.add(leaves);
-          
+            List<Integer> nl = new ArrayList();
+            root = helper(root, nl);
+            ret.add(nl);
         }
-        
-        return result;
+        return ret;
     }
-    public void dfs(TreeNode node, List<Integer> leaves){
-        if(node == null) return;
-        
-        if(node.left != null){
-            if(node.left.left == null && node.left.right == null){
-                leaves.add(node.left.val);
-                node.left = null;
-            }else{
-                 dfs(node.left,leaves);
-            }
+    public TreeNode helper(TreeNode node, List<Integer> nl){
+        if(node == null) return node;
+        if(node.left == null && node.right == null){
+            nl.add(node.val);
+            return null;
         }
-        if(node.right != null){
-            if(node.right.left == null && node.right.right == null){
-                leaves.add(node.right.val);
-                node.right = null;
-            }else{
-                dfs(node.right,leaves);
-            }
-        }
-        
+        node.left = helper(node.left, nl);
+        node.right = helper(node.right, nl);
+        return node;
     }
 }
