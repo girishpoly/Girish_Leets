@@ -6,7 +6,7 @@
  *     TreeNode right;
  *     TreeNode(int x) { val = x; }
  * }
- Time Complexity: O(N), where NN is the number of nodes in the BST. In the worst case we might be visiting all the nodes of the BST.
+ Time Complexity: O(N), where N is the number of nodes in the BST. In the worst case we might be visiting all the nodes of the BST.
 
 Space Complexity: O(N). This is because the maximum amount of space utilized by the recursion stack
  */
