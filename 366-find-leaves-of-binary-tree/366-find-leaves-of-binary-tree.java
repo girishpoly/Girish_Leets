@@ -14,23 +14,40 @@
  * }
  */
 class Solution {
-    List<List<Integer>> ret = new ArrayList();
     public List<List<Integer>> findLeaves(TreeNode root) {
-        while(root != null){
-            List<Integer> nl = new ArrayList();
-            root = helper(root, nl);
-            ret.add(nl);
+        
+        List<List<Integer>> result = new ArrayList<>();
+        if(root == null){
+            return result;
         }
-        return ret;
+        
+        while(root != null){
+            List<Integer> tmpList = new ArrayList();
+            root = dfs(root, tmpList);
+            result.add(tmpList);
+        }
+        
+        return result;
+        
     }
-    public TreeNode helper(TreeNode node, List<Integer> nl){
-        if(node == null) return node;
-        if(node.left == null && node.right == null){
-            nl.add(node.val);
+    
+    private TreeNode dfs(TreeNode node, List<Integer> list){
+        
+        if(node == null){
             return null;
         }
-        node.left = helper(node.left, nl);
-        node.right = helper(node.right, nl);
+        
+        //leaf node
+        if(node.left == null && node.right == null){
+            list.add(node.val);
+            node = null;
+            return node;
+        }
+        
+        //not leaf node
+        node.left = dfs(node.left, list);
+        node.right = dfs(node.right, list);
         return node;
+        
     }
 }
