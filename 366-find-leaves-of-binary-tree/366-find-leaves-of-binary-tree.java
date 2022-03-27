@@ -12,6 +12,10 @@
  *         this.right = right;
  *     }
  * }
+ 
+ o(n), space is for recursive calls O(n)
+ 
+ 
  */
 class Solution {
     public List<List<Integer>> findLeaves(TreeNode root) {
