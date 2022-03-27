@@ -28,7 +28,7 @@ where n1, n2 are the lengths of given arrays nums1, nums2 respectively.
 Approach 2:
 
 In approach 1, we haven't utilized the given property of the arrays nums1, nums2 where each array is sorted in an ascending order. Therefore, to make use of that property, we define a min heap (sorted by sum of nums1[i], nums2[j]) and add first k pairs into the heap.
-Note that product of i * j combination pairs betweennums1 & nums2 will never exceed requiredk and this observation is the key to this aprroach. Index j pointing to nums2 array is initially 0 and we start to map min(n1, k) elements in nums1 array to zeroth index of nums2 array.
+Note that product of i * j combination pairs between  nums1 & nums2 will never exceed requiredk and this observation is the key to this aprroach. Index j pointing to nums2 array is initially 0 and we start to map min(n1, k) elements in nums1 array to zeroth index of nums2 array.
 
 Time: O(klogk) as we only maintain k pairs in the heap any point in time and it takes logk time to swim up/down.
 
