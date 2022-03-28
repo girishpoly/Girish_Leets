@@ -21,7 +21,9 @@ This is a naive approach of solving this problem where you construct all pairs f
 
 		return kSmallestPairs;
 	}
-Time: O((n1 * n2)log(n1 * n2) + klog(n1 * n2)) ~= O((n1 * n2)log(n1 * n2))
+
+Store the smallest k pair of elements in a minHeap and then poll it out and store the same in the final result.
+Intuitively we can think of O(k^2 log k) solution, which will be to store each combination of k elements of nums1 and k elements of nums2 in the minHeap and then poll first k elements from the minHeap and add in the final result.
 Space: O(n1 * n2)
 where n1, n2 are the lengths of given arrays nums1, nums2 respectively.
 
@@ -29,8 +31,6 @@ Approach 2:
 
 Intuition:
 
-Store the smallest k pair of elements in a minHeap and then poll it out and store the same in the final result.
-Intuitively we can think of O(k^2 log k) solution, which will be to store each combination of k elements of nums1 and k elements of nums2 in the minHeap and then poll first k elements from the minHeap and add in the final result.
 We can do better than that. We can store combinations of k elements from nums1 and nums2[0] (the first element of nums2) in O(k log k) time. (We could have done the other way as well, storing nums1[0] and all nums2 combination, but the overall time complexity will still be the same).
 Now we poll out each element from the minHeap and at the same time we add the pair of the next nums2[] element and the curr polled element of nums1 in the minHeap until we get k elements OR the minHeap is empty.
 For getting the next nums2 element we can store the curr index of nums2 in the minHeap when we are storing the nums1 and nums2 pair.
