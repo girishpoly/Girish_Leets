@@ -13,6 +13,11 @@
  *     }
  * }
   O(N) 
+  I did the inorder traversal of the BST. 
+  The inorder traversal is actually a sorted sequence. 
+  While performing traversal, keep adding elements into Queue until it reached size of K.
+  When it reached size of K, compare the current value difference to the target to the first element value different to the target. 
+  If it is smaller than the first one, poll the first one and add the current one. If it is greater than the first one, terminate the traversal.
  */
 public class Solution {
     
