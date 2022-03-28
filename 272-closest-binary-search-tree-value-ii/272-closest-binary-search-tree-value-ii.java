@@ -22,20 +22,20 @@
 public class Solution {
     
 private Queue<Integer> results = null;
-private boolean end = false;
+// private boolean end = false;
 
 public List<Integer> closestKValues(TreeNode root, double target, int k) {
     if (k <= 0) {
         return new ArrayList<Integer>();
     }
     results = new ArrayDeque<>(k);
-    end = false;
+    // end = false;
     helper(root, target, k);
     return new ArrayList<Integer>(results);
 }
 
 public void helper(TreeNode node, double target, int k) {
-    if (node == null || end) {
+    if (node == null ) {
         return;
     }
     
@@ -51,7 +51,7 @@ public void helper(TreeNode node, double target, int k) {
             results.poll();
             results.add(val);
         } else {
-            end = true;
+            // end = true;
             return;
         }
     }
