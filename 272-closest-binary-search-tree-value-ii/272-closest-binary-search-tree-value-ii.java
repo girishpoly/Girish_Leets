@@ -12,35 +12,44 @@
  *         this.right = right;
  *     }
  * }
+  O(N) 
  */
 public class Solution {
-    public List<Integer> closestKValues(TreeNode root, double target, int k) {
-        LinkedList<Integer> list = new LinkedList<Integer>();
-        closestKValuesHelper(list, root, target, k);
-        return list;
+    
+private Queue<Integer> results = null;
+private boolean end = false;
+
+public List<Integer> closestKValues(TreeNode root, double target, int k) {
+    if (k <= 0) {
+        return new ArrayList<Integer>();
+    }
+    results = new ArrayDeque<>(k);
+    end = false;
+    helper(root, target, k);
+    return new ArrayList<Integer>(results);
+}
+
+public void helper(TreeNode node, double target, int k) {
+    if (node == null || end) {
+        return;
     }
     
-    /**
-     * @return <code>true</code> if result is already found.
-     */
-    private boolean closestKValuesHelper(LinkedList<Integer> list, TreeNode root, double target, int k) {
-        if (root == null) {
-            return false;
+    helper(node.left, target, k);
+    if (results.size() < k) {
+        results.add(node.val);
+    } else {
+        int first = results.peek();
+        int val = node.val;
+        double diff1 = Math.abs(target - (double) first);
+        double diff2 = Math.abs(target - (double) val);
+        if (diff1 > diff2) {
+            results.poll();
+            results.add(val);
+        } else {
+            end = true;
+            return;
         }
-        
-        if (closestKValuesHelper(list, root.left, target, k)) {
-            return true;
-        }
-        
-        if (list.size() == k) {
-            if (Math.abs(list.getFirst() - target) < Math.abs(root.val - target)) {
-                return true;
-            } else {
-                list.removeFirst();
-            }
-        }
-        
-        list.addLast(root.val);
-        return closestKValuesHelper(list, root.right, target, k);
     }
+    helper(node.right, target, k);
+}
 }
