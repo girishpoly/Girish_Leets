@@ -30,6 +30,7 @@ where n1, n2 are the lengths of given arrays nums1, nums2 respectively.
 Approach 2:
 
 Intuition:
+https://leetcode.com/problems/find-k-pairs-with-smallest-sums/discuss/1502531/Java-%2B-PriorityQueue-%2B-With-Intuition-%2B-Easy-to-understand
 
 We can do better than that. We can store combinations of k elements from nums1 and nums2[0] (the first element of nums2) in O(k log k) time. (We could have done the other way as well, storing nums1[0] and all nums2 combination, but the overall time complexity will still be the same).
 Now we poll out each element from the minHeap and at the same time we add the pair of the next nums2[] element and the curr polled element of nums1 in the minHeap until we get k elements OR the minHeap is empty.
