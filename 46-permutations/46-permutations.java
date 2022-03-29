@@ -15,11 +15,14 @@ class Solution {
     public void backtrack(List<List<Integer>> list, List<Integer> temp, int [] nums){
         if (temp.size()==nums.length){
             list.add(new ArrayList(temp));//if the the temp list equals nums length then add to resultant list
-            }else{
+            }
+        
+        else{
             for(int i=0;i<nums.length;i++){
                 if(temp.contains(nums[i]))
                     continue;
                 temp.add(nums[i]);//Add the current traversing element from nums
+                
                 backtrack(list, temp, nums);//Backtrack to its previous node by calling backtrack function recursively
                 temp.remove(temp.size()-1);//remove the last element of the temp to find another way from the prev node which we got ofter backtracking 
             }
