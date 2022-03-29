@@ -11,41 +11,38 @@ We are traversing the entire array for each subset (once we are done with one su
 Space complexity: O(N)
 */
 class Solution {
-  public boolean canPartitionKSubsets(int[] nums, int k) {
-	if (k > nums.length) return false;
-	int sum = 0;
-	for (int i : nums) sum += i;
-	// basic logic test
-	if (sum % k != 0) return false;
-	Arrays.sort(nums);
+    public boolean canPartitionKSubsets(int[] nums, int k) {
+        int total = 0;
+        for(int el: nums){
+            total+=el;
+        }
 
-	return dfs(nums, new boolean[nums.length], k, 0, sum / k, nums.length - 1);
-}
+        if(total%k !=0){
+            return false;
+        }
 
-private boolean dfs(int[] nums, boolean[] visited, int k, int currentSum, int targetSum, int position) {
-	// if k is 0, for sure nothing will be left unvisited! this is conclusion from simple math.
-	if (k == 0) return true;
+        if (nums.length < k) return false;
 
-	// begin next sum search. Critical point: start search from nums.length - 1, not position!!!
-	if (currentSum == targetSum) return dfs(nums, visited, k - 1, 0, targetSum, nums.length - 1);
+        int subsetSum = total/k;
+        boolean[] visited = new boolean[nums.length];
+        return canPartition(nums, visited, 0, k, 0, subsetSum);
 
-	for (int i = position; i >= 0; i--) {
-		// Skip logic 1: 
-		// Of course you cannot visit what's already visited.
-		if (visited[i]) continue;
-		// Skip logic 2:
-		// if the last position (i + 1) is not visited, that means it does not work for current combination, 
-		// and of course this position (i) has same value, it won't work as well, skip it.
-		if (i + 1 < nums.length && nums[i] == nums[i + 1] && !visited[i + 1]) continue;
-		// Skip logic 3:
-		// No need to explain, just out of range case.
-		if (currentSum + nums[i] > targetSum) continue;
+    }
 
-		// simple recursion and backtracking
-		visited[i] = true;
-		if (dfs(nums, visited, k, currentSum + nums[i], targetSum, i - 1)) return true;
-		visited[i] = false;
-	}
-	return false;
-}
+    private boolean canPartition(int[] nums, boolean[] visited, int start, int k, int curSum, int subsetSum) {
+        if (k == 0) return true;
+        if (curSum > subsetSum) return false;
+        if (curSum == subsetSum)  {
+            return canPartition(nums, visited, 0, k - 1, 0, subsetSum);
+        }
+
+        for (int i = start; i < nums.length; i++) {
+            if (visited[i]) continue;
+            visited[i] = true;
+            if (canPartition(nums, visited, i + 1, k, curSum + nums[i], subsetSum)) return true;
+            visited[i] = false;
+        }
+
+        return false;
+    }
 }
