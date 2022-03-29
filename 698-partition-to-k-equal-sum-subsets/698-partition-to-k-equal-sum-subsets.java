@@ -11,57 +11,31 @@ We are traversing the entire array for each subset (once we are done with one su
 Space complexity: O(N)
 */
 class Solution {
-    public boolean canPartitionKSubsets(int[] nums, int k) {
+    public boolean canPartitionKSubsets(int[] a, int k) {
         int sum=0;
-        for(int i:nums){
-            sum+=i;
-        }
-        
-        //sum%k must equal to 0 if not just return false
-        //if we have to to divide the array greater than array size retun false(we can't)
-        if(sum%k!=0 || nums.length<k) return false;
-        
-        //sort so we can take last element and start filling our bucket
-        Arrays.sort(nums);
-        
-        //our target is sum/k and we have to find this in nums, k times then it is valid
-        return canPartitionKSubsets(nums,sum/k,nums.length-1,new int[k]);
-    
+	    for(int i=0;i<a.length;i++){
+	        sum+=a[i];  //finding sum of elements
+	    }
+	    
+	    if(k==1) return true;
+	    if(k>a.length || sum%k!=0) return false; //if sum is not a multiple of K we can't divide
+	    boolean visited[]= new boolean[a.length];  
+	    Arrays.fill(visited,false);
+	    return findPart(a,visited,sum/k,0,0,k);
     }
-    public boolean canPartitionKSubsets(int a[],int target,int i,int bucket[]){
+     public boolean findPart(int arr[], boolean visited[], int target, int curr_sum, int i, int k){
+        if(k==1) return true;
         
-        //we have taken all the elements
-        if(i==-1)
-            return true;
+        if(curr_sum==target) return findPart(arr, visited, target, 0, 0, k-1);
         
-        //start filling the buckets
-        for(int j=0;j<bucket.length;j++){
+        for(int j=i;j<arr.length;j++){
+            if(visited[j] || curr_sum+arr[j]>target) continue;
+            visited[j]=true;  //do
+            if(findPart(arr, visited, target, curr_sum + arr[j], j+1, k))  //recur
+                return true;
+            visited[j]=false;  //undo
             
-            //can we take this ith element
-            if(bucket[j]+a[i]<=target){
-            
-                //if we take this element
-                bucket[j]+=a[i];
-                
-                //go to next element (in our case go to smallest ele bcz we sorted)
-                //if we can fill all buckets then return true
-                if(canPartitionKSubsets(a,target,i-1,bucket))
-                    return true;
-                
-                //means we can't fill other buckets if we take ith element so leave this element
-                bucket[j]-=a[i];
-            
-            }
-            
-            //if our bucket is empty means we have not taken any elements in the buckets
-            if(bucket[j]==0)
-                break;
-        
         }
-        
-        //all buckets are full but i is pointing to some element (elements still left)
-        //or our bucket is empty means we haven't take any element (not valid)
         return false;
-    
     }
 }
