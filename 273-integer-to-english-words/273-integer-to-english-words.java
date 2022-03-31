@@ -1,3 +1,7 @@
+/*
+Time complexity : \mathcal{O}(N)O(N). Intuitively the output is proportional to the number N of digits in the input.
+Space complexity : \mathcal{O}(1)O(1) since the output is just a string.
+*/
 public class Solution {
     public String[] oneToNineteen = new String[]{
         "",
