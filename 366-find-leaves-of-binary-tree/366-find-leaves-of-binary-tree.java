@@ -15,6 +15,10 @@
  
  o(n), space is for recursive calls O(n)
  
+ Do a DFS to go all the way to the leaf nodes. IF it is a leaf node meaning , if left node and right node are null then it is a leaf node.
+ all leaf nodes to templist and add templist to result for every iteration.
+ once the leaf node is processed mark it as null.
+ 
  DFS - go through entire depth of the tree , remove leaf nodes and backtrack
  
  at every iteration mark the leaves as null so we don't process them again. 
