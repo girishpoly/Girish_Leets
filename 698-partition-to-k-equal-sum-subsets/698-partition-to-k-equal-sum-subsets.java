@@ -1,6 +1,6 @@
 /*
 https://leetcode.com/problems/partition-to-k-equal-sum-subsets/discuss/1772704/Java-Solution-(with-comments)-oror-100-faster-oror-1ms
-
+if we sort the nums , it is faster
 
 Let N be the number of elements in the array and k be the number of subsets.
 
