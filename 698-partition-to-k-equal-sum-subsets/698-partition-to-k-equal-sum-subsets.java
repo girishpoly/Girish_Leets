@@ -2,7 +2,7 @@
 https://leetcode.com/problems/partition-to-k-equal-sum-subsets/discuss/1772704/Java-Solution-(with-comments)-oror-100-faster-oror-1ms
 
 
-Let NN be the number of elements in the array and kk be the number of subsets.
+Let N be the number of elements in the array and k be the number of subsets.
 
 Time complexity: O(k 2^n)
 
@@ -13,26 +13,34 @@ Space complexity: O(N)
 class Solution {
     public boolean canPartitionKSubsets(int[] nums, int k) {
         int total = 0;
+        //calcualte the total of all the nums
         for(int el: nums){
             total+=el;
         }
 
+        //total should be divisible by k inorder to divide the nums array into k subsets
         if(total%k !=0){
             return false;
         }
 
+        //if we have to divide the array than array size return false
         if (nums.length < k) return false;
 
+        //target sum for each subset, in this case it is 5
         int subsetSum = total/k;
+        
         boolean[] visited = new boolean[nums.length];
+        
         return canPartition(nums, visited, 0, k, 0, subsetSum);
 
     }
 
+    //add visited later
     private boolean canPartition(int[] nums, boolean[] visited, int start, int k, int curSum, int subsetSum) {
         if (k == 0) return true;
         if (curSum > subsetSum) return false;
         if (curSum == subsetSum)  {
+            //if currSum becomes equal to subsetSum that means we found one bucket, reduce k
             return canPartition(nums, visited, 0, k - 1, 0, subsetSum);
         }
 
