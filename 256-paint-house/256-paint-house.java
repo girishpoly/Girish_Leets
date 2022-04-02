@@ -1,6 +1,13 @@
 //https://leetcode.com/problems/paint-house/discuss/1787489/JAVA-Multiple-approaches-explained-with-comments
 
+
+
 /*
+The brute force way is to generate every valid permutation, remove the invalid ones and find the best one.
+The time complexity will be exponential. O(2^n)
+
+
+
 Using dynamic programming 2D-tabulation dp[N][M] N- Number of Houses M-Number of Colors to choose from
 
 This problem can be solved using dynamic programming in either bottom up or top down approach. Represented bewlow is a top down approach using 2d tabulation. Using btute force approach there would be 2^n possible ways in which you can paint n houses with given m=3 colors as at each index(house) you have 3 options for the first house and 2 options for all other houses.
