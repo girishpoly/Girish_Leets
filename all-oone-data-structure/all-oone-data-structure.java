@@ -15,9 +15,9 @@ class AllOne {
         }
     }
     
-    HashMap<String, Entry> entries; 
-    PriorityQueue<Entry> maxHeap;
-    PriorityQueue<Entry> minHeap;
+    HashMap<String, Entry> entries; // to store all entries 
+    PriorityQueue<Entry> maxHeap; // to get getMaxKey() in o(1)
+    PriorityQueue<Entry> minHeap; // to get getMinKey() in o(1)
 
     /** Initialize your data structure here. */
     public AllOne() {
