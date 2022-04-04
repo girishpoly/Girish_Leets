@@ -13,7 +13,9 @@ This is a naive approach of solving this problem where you construct all pairs f
 		}
 
 		List<List<Integer>> kSmallestPairs = new ArrayList<>();
-
+        
+        the min heap will have smallest sums at the top and keep removing smallest sums until k is 0
+        
 		while (!allPairs.isEmpty() && k-- > 0) {
 			int[] currentPair = allPairs.poll();
 			kSmallestPairs.add(Arrays.asList(currentPair[0], currentPair[1]));
@@ -36,6 +38,18 @@ We can do better than that. We can store combinations of k elements from nums1 a
 Now we poll out each element from the minHeap and at the same time we add the pair of the next nums2[] element and the curr polled element of nums1 in the minHeap until we get k elements OR the minHeap is empty.
 For getting the next nums2 element we can store the curr index of nums2 in the minHeap when we are storing the nums1 and nums2 pair.
 This step will again take O(k log k) time. Hence our overall time complexity reduces to O(2*(k log k)) which is effectively O(k log k).
+
+ nums1 = [1,7,11], nums2 = [2,4,6], k = 3
+Output: [[1,2],[1,4],[1,6]]
+
+take all elements from nums1 and only 0th index element from nums2. Store the nums2idx in PQ.
+
+minheap = [1,2,0] [7,2,0] [11,2,0] 0 is current index of the nums2
+
+first poll will give [1,2,0]
+curr = [1,2,0]
+numsId = 0
+keeping moving forward in nums2 
 
 */
 class Solution {
