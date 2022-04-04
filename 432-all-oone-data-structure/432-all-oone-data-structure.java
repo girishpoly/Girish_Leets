@@ -2,7 +2,7 @@
 can be done using hashmap and priority queue by maintaing max heap and min heap. But it won't be O(1).
 https://leetcode.com/problems/all-oone-data-structure/discuss/1096482/JAVA-Hashmap-%2B-Heap-(min-and-max-pq)
 
-https://leetcode.com/problems/all-oone-data-structure/discuss/1645396/Java-Minimal-Simple-Solution-using-two-maps-48ms-54.7MB
+https://leetcode.com/problems/all-oone-data-structure/discuss/564660/Faster-than-66-TreeMap-and-HashMap-JAVA
 
 */
 class AllOne {
@@ -15,9 +15,9 @@ class AllOne {
         }
     }
     
-    HashMap<String, Entry> entries; 
-    PriorityQueue<Entry> maxHeap;
-    PriorityQueue<Entry> minHeap;
+    HashMap<String, Entry> entries; // to store all entries 
+    PriorityQueue<Entry> maxHeap; // to get getMaxKey() in o(1)
+    PriorityQueue<Entry> minHeap; // to get getMinKey() in o(1)
 
     /** Initialize your data structure here. */
     public AllOne() {
