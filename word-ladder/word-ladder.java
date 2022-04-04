@@ -10,6 +10,19 @@ class Solution {
     Now whatever words are there in queue, they will be of same level 
     (those words have been reached from same level word). So once all words of queue are processed at a 
     level, we will increase our counter.
+    
+    beginWord - hit , end word : cog
+    
+    add hit to queue. poll the first string. Loop through every character and replace with a - z. see if each newly formed string exists in the dict. if it does add the new string to the queue. if new string == end word increment counter and return.
+    
+    add all the newly formed strings from hit  -> hot (only one present in dict) to queue.
+    
+    From hot , we can form - lot, dot. Add these to the queue to do BFS
+    From lot, we can form - log
+    1   2      3     4
+    hit hot dot lot dog log    everytime word is found in dict. remove it.
+    
+    dog - cog count = 5
     */
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
         Queue<String> queue = new LinkedList<>();
