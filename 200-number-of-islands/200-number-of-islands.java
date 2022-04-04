@@ -11,7 +11,7 @@
     
     Time complexity :O(M×N) where MM is the number of rows and NN is the number of columns.
 
-Space complexity : O(min(M, N))O(min(M,N)) because in worst case where the grid is filled with lands, the size of queue can grow up to min(M,NM,N).
+Space complexity :O(min(M,N))) because in worst case where the grid is filled with lands, the size of queue can grow up to min(M,N).
 */
 class Solution {
 
