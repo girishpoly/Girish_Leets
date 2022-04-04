@@ -1,6 +1,9 @@
 /*
 Intuition:
-Finding a window that has all characters from target and check if the length is min or not. The count of characters in t should match with the count of characters in the window in s. Since the requirement is to find the min length of the string, so whenever a valid substring is found, then shrink the window from start and check if a smaller window is available or not.
+Finding a window that has all characters from target and check if the length is min or not. 
+The count of characters in t should match with the count of characters in the window in s. 
+Since the requirement is to find the min length of the string, so whenever a valid substring is found,
+then shrink the window from start and check if a smaller window is available or not.
 
 Algorithm:
 
@@ -9,6 +12,59 @@ Once a valid window is found then increment the start pointer and check if the w
 If valid, then increment start pointer further.
 If not valid then increment the end pointer and try to find a valid window again.
 Every time a valid window is found check if that is smaller the previously computed small window. If it is smaller then update that as the latest smallest window.
+TC : O(S+T)
+SC : O(S+T)
+
+ s = "ADOBECODEBANC", t = "ABC"
+ 
+ lets have an array to store the start and end index of string to return minmum string
+ 
+  s    e
+  ADOBEC  
+  
+  we can maintain two hashmaps for s string and t string and insert character with frequency for t string. insert all 0 for s.
+  s : A-0, B-0, C-0   t : A-1, B-1, C-1
+  
+  as we loop throgh the s string check if each character is present in t. if it is present then update frequency in s
+  
+  s    e
+  ADOBEC  at this stage we will have s : A-1, B-1, C-1   t : A-1, B-1, C-1
+  lets maintain another variable matched to keep track of how many matched. At this point matched = 3
+  
+   if(matched == tMap.size()){
+    that means a valid window is found, we need to find out if there is a smaller window in the string
+    reduce the window by moving the start poniter to the right
+    s   e
+    DOBEC , since A is removed then update the sMap and the matched variable. matched < tMap.size
+    now there is no valid window
+   }
+   
+   store last valid window values with start and end . it will be start - 1 and end
+   
+   //Now move the end pointer to right to find another valid window
+    
+    DOBECODEBA - this is not a smaller string than previously found string 
+    OBECODEBA
+    BECODEBA
+    ECODEBA
+    CODEBA
+    ODEBA - window fails again. Update the sMap values and the matched values
+    
+    move the next end pointer to find another valid winow and find a smaller string until matched == tMapSize
+    ODEBAN
+    ODEBANC - valid window
+    can we go smaller ?
+    DEBANC - wont' overide min length 6 yet
+    EBANC - min length 5 found. record start and end
+    BANC - length 4 found
+    remove B , valid window failed
+    moved end - but can't move
+    
+    stop here and return the sub string with start and end values recorded in the result array 
+    
+    
+    
+    
 */
 class Solution {
     public String minWindow(String s, String t) {
