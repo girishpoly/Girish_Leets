@@ -68,7 +68,7 @@ class Solution {
             int[] curr = minHeap.poll();
             result.add(List.of(curr[0], curr[1]));
             int nums2Idx = curr[2];
-            if(nums2Idx < nums2.length - 1)
+            if(nums2Idx < nums2.length - 1) //nums2Idx+1 thats why - 1
                 minHeap.add(new int[]{curr[0], nums2[nums2Idx + 1], nums2Idx + 1});
         }
         return result;
