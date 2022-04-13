@@ -7,6 +7,10 @@
  *     ListNode(int val) { this.val = val; }
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
+ Time complexity : O(n+m)
+ Space complexity : O(1)
+
+The iterative approach only allocates a few pointers, so it has a constant overall memory footprint.
  */
 class Solution {
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
