@@ -1,7 +1,7 @@
 class Solution {
     public int[][] kClosest(int[][] points, int k) {
         PriorityQueue<Point> heap = new PriorityQueue<Point>( points.length, new HeapComparator());
-        
+        //AB=(x2−x1)2+(y2−y1)2−−−−−−−−−−−−−−−−−−√
         for(int r = 0; r< points.length;r++){
             heap.add(new Point(points[r][0], points[r][1]));
         }     
